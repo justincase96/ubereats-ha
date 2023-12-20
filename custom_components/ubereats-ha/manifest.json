@@ -1,7 +1,7 @@
 {
     "domain": "uber_eats",
     "name": "Uber Eats",
-    "documentation": "https://www.",
+    "documentation": "https://github.com/justincase96/ubereats-ha/blob/main/README.md",
     "dependencies": [],
     "codeowners": [],
     "requirements": ["requests"]
