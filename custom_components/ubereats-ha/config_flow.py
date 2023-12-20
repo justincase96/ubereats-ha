@@ -1,4 +1,5 @@
 from homeassistant import config_entries
+import pytz
 
 class UberEatsConfigFlow(config_entries.ConfigFlow, domain="uber_eats"):
     VERSION = 1
@@ -14,12 +15,7 @@ class UberEatsConfigFlow(config_entries.ConfigFlow, domain="uber_eats"):
                 {
                     vol.Required("cookie"): str,
                     vol.Required("userUuid"): str,
-                    vol.Required("timezone", default="Africa/Johannesburg"): vol.In([
-                        "Africa/Johannesburg",
-                        "America/New_York",
-                        "Asia/Tokyo",
-                        # Add more timezones here
-                    ]),
+                    vol.Required("timezone", default="Africa/Johannesburg"): vol.In(pytz.all_timezones),
                 }
             ),
         )
