@@ -1,11 +1,9 @@
+import json
 from homeassistant import config_entries
 import pytz
 
-LOCALE_CODE_MAPPING = {
-    'Africa/Johannesburg': 'za',
-    'Asia/Hong_Kong': 'hk',
-    # Add more mappings here
-}
+with open('locale_codes.json', 'r') as f:
+    LOCALE_CODE_MAPPING = json.load(f)
 
 class UberEatsConfigFlow(config_entries.ConfigFlow, domain="uber_eats"):
     VERSION = 1
