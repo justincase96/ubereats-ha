@@ -1,5 +1,9 @@
+import json
 import requests
 from homeassistant.helpers.entity import Entity
+
+with open('locale_codes.json', 'r') as f:
+    LOCALE_CODE_MAPPING = json.load(f)
 
 def async_setup_entry(hass, entry, async_add_entities):
     async_add_entities([UberEatsSensor(entry.data)])
@@ -20,7 +24,7 @@ class UberEatsSensor(Entity):
     async def async_update(self):
         response = await hass.async_add_executor_job(
             requests.post,
-            'https://www.ubereats.com/api/getActiveOrdersV1?localeCode=za',
+            f"https://www.ubereats.com/api/getActiveOrdersV1?localeCode={self._config['locale_code']}",
             headers={
                 'accept': 'application/json',
                 'cookie': f"sid={self._config['cookie']}; _userUuid={self._config['userUuid']}",
