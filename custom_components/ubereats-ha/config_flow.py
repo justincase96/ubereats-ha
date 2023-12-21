@@ -1,12 +1,19 @@
 from homeassistant import config_entries
 import pytz
 
+LOCALE_CODE_MAPPING = {
+    'Africa/Johannesburg': 'za',
+    'Asia/Hong_Kong': 'hk',
+    # Add more mappings here
+}
+
 class UberEatsConfigFlow(config_entries.ConfigFlow, domain="uber_eats"):
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
     async def async_step_user(self, user_input=None):
         if user_input is not None:
+            user_input['locale_code'] = LOCALE_CODE_MAPPING.get(user_input['timezone'], 'za')
             return self.async_create_entry(title="Uber Eats", data=user_input)
 
         return self.async_show_form(
